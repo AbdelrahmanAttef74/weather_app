@@ -5,14 +5,16 @@ then you need to create parent class to inherit to your children
 */
 import 'package:weather_app/models/weather_model.dart';
 
-class WeatherStates {}
+abstract class WeatherStates {}
 
-class WeatherIntialState extends WeatherStates {}
+class WeatherIntial extends WeatherStates {}
 
-class WeatherLoadedState extends WeatherStates {
+class WeatherLoaded extends WeatherStates {}
+
+class WeatherSccess extends WeatherStates {
   final WeatherModel weatherModel;
 
-  WeatherLoadedState({required this.weatherModel});
+  WeatherSccess({required this.weatherModel});
 }
 
-class WeatherFailedState extends WeatherStates {}
+class WeatherFailure extends WeatherStates {}

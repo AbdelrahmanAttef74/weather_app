@@ -12,18 +12,19 @@ import 'package:weather_app/services/weather_service.dart';
 
 class GetWeatherCubit extends Cubit<WeatherStates> {
   //first state in our app is no weatherState'initialState'
-  GetWeatherCubit() : super(WeatherIntialState());
+  GetWeatherCubit() : super(WeatherIntial());
   WeatherModel? weatherModel;
 
   getWeather({required String cityName}) async {
     try {
+      emit(WeatherLoaded());
       weatherModel =
           await WeatherServices(Dio()).getCurrentWeather(cityName: cityName);
       //second state when data loaded succesfully
-      emit(WeatherLoadedState(weatherModel: weatherModel!));
+      emit(WeatherSccess(weatherModel: weatherModel!));
     } catch (e) {
       //third state when there is error or exeption while requesting data
-      emit(WeatherFailedState());
+      emit(WeatherFailure());
     }
   }
 }
