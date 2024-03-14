@@ -13,7 +13,6 @@ class WeatherLoading extends WeatherStates {}
 
 class WeatherSuccess extends WeatherStates {
   final WeatherModel weatherModel;
-
   WeatherSuccess({required this.weatherModel});
 }
 

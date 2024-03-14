@@ -17,10 +17,13 @@ class WeatherApp extends StatelessWidget {
       child: Builder(
         builder: (context) => MaterialApp(
           theme: ThemeData(
-            primarySwatch: getWeatherColor(
-                BlocProvider.of<GetWeatherCubit>(context)
-                    .weatherModel
-                    ?.weatherCondition),
+            colorScheme: ColorScheme.fromSeed(
+                seedColor: getWeatherColor(
+              BlocProvider.of<GetWeatherCubit>(context)
+                  .weatherModel
+                  ?.weatherCondition,
+            )),
+            useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
           home: const HomeView(),
@@ -32,11 +35,11 @@ class WeatherApp extends StatelessWidget {
 
 MaterialColor getWeatherColor(String? condition) {
   if (condition == null) {
-    return Colors.yellow;
+    return Colors.orange;
   }
   switch (condition) {
     case 'Sunny':
-      return Colors.orange;
+      return Colors.deepOrange;
     case 'Partly cloudy':
     case 'Patchy rain possible':
     case 'Patchy light drizzle':

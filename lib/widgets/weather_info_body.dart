@@ -14,7 +14,7 @@ class WeatherInfoBody extends StatelessWidget {
     weatherModel.image.contains('https:');
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(
           'Weather App',
           style: TextStyle(

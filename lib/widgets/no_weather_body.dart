@@ -8,7 +8,7 @@ class NoWeatherBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: const Text(
           'Weather App',
           style: TextStyle(
