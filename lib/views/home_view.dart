@@ -18,14 +18,18 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       body: BlocBuilder<GetWeatherCubit, WeatherStates>(
           builder: (context, state) {
-        if (state is WeatherIntialState) {
-          return const NoWeatherBody();
-        } else if (state is WeatherLoadedState) {
+        if (state is WeatherLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (state is WeatherSuccess) {
           return WeatherInfoBody(
             weather: state.weatherModel,
           );
-        } else {
+        } else if (state is WeatherFailure) {
           return const Text('oops there was an error');
+        } else {
+          return const NoWeatherBody();
         }
       }),
     );
