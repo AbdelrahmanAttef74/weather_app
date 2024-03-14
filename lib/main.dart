@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/cubits/get_weather_cubit/get_weather_cubit.dart';
+import 'package:weather_app/cubits/get_weather_cubit/get_weather_states.dart';
 import 'package:weather_app/views/home_view.dart';
 
 void main() {
@@ -15,31 +16,35 @@ class WeatherApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => GetWeatherCubit(),
       child: Builder(
-        builder: (context) => MaterialApp(
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(
-                seedColor: getWeatherColor(
-              BlocProvider.of<GetWeatherCubit>(context)
-                  .weatherModel
-                  ?.weatherCondition,
-            )),
-            useMaterial3: true,
-          ),
-          debugShowCheckedModeBanner: false,
-          home: const HomeView(),
+        builder: (context) => BlocBuilder<GetWeatherCubit, WeatherStates>(
+          builder: (context, state) {
+            return MaterialApp(
+              theme: ThemeData(
+                colorScheme: ColorScheme.fromSeed(
+                    seedColor: getThemeColor(
+                  BlocProvider.of<GetWeatherCubit>(context)
+                      .weatherModel
+                      ?.weatherCondition,
+                )),
+                useMaterial3: true,
+              ),
+              debugShowCheckedModeBanner: false,
+              home: const HomeView(),
+            );
+          },
         ),
       ),
     );
   }
 }
 
-MaterialColor getWeatherColor(String? condition) {
+MaterialColor getThemeColor(String? condition) {
   if (condition == null) {
-    return Colors.orange;
+    return Colors.blue;
   }
   switch (condition) {
     case 'Sunny':
-      return Colors.deepOrange;
+      return Colors.orange;
     case 'Partly cloudy':
     case 'Patchy rain possible':
     case 'Patchy light drizzle':
@@ -81,7 +86,7 @@ MaterialColor getWeatherColor(String? condition) {
     case 'Light showers of ice pellets':
     case 'Moderate or heavy showers of ice pellets':
     case 'Light sleet':
-      return Colors.grey;
+      return Colors.pink;
     case 'Moderate or heavy sleet':
     case 'Thundery outbreaks possible':
     case 'Blowing snow':

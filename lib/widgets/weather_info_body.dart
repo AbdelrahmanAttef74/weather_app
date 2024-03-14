@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_app/cubits/get_weather_cubit/get_weather_cubit.dart';
+import 'package:weather_app/main.dart';
 import 'package:weather_app/models/weather_model.dart';
 import 'package:weather_app/views/search_view.dart';
 
@@ -36,52 +37,65 @@ class WeatherInfoBody extends StatelessWidget {
               ))
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              weatherModel.cityName,
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              'updated at ${weatherModel.date.hour} : ${weatherModel.date.minute}',
-              style: const TextStyle(
-                fontSize: 22,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Image.network(
-                  'https:${weatherModel.image}',
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              getThemeColor(weatherModel.weatherCondition),
+              getThemeColor(weatherModel.weatherCondition)[300]!,
+              getThemeColor(weatherModel.weatherCondition)[50]!,
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                weatherModel.cityName,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
-                Text(
-                  weatherModel.temp.toInt().toString(),
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+              ),
+              Text(
+                'updated at ${weatherModel.date.hour} : ${weatherModel.date.minute}',
+                style: const TextStyle(
+                  fontSize: 22,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Image.network(
+                    'https:${weatherModel.image}',
                   ),
-                ),
-                Column(
-                  children: [
-                    Text('Maxtemp : ${weatherModel.maxTemp.toInt()}'),
-                    Text('Mintemp :${weatherModel.minTemp.toInt()}'),
-                  ],
-                )
-              ],
-            ),
-            Text(
-              weatherModel.weatherCondition,
-              style: const TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
+                  Text(
+                    weatherModel.temp.toInt().toString(),
+                    style: const TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Column(
+                    children: [
+                      Text('Maxtemp : ${weatherModel.maxTemp.toInt()}'),
+                      Text('Mintemp :${weatherModel.minTemp.toInt()}'),
+                    ],
+                  )
+                ],
               ),
-            )
-          ],
+              Text(
+                weatherModel.weatherCondition,
+                style: const TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
